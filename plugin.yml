@@ -1,0 +1,13 @@
+name: amejiManager
+version: 0.1
+main: net.jp.minecraft.plugins.amejiManager
+author: syokkendesuyo
+description: amejiManager
+commands:
+    help:
+        description: Help Command
+        usage: /help
+permissions:
+    ameji.use:
+        description: default perm
+        default: op
