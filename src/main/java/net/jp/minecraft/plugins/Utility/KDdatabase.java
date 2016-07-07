@@ -1,8 +1,14 @@
 package net.jp.minecraft.plugins.Utility;
 
+import com.mysql.fabric.xmlrpc.base.Array;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * amejiManager
@@ -17,6 +23,7 @@ public class KDdatabase {
     public static float kd_death;
     public static HashMap<UUID,Integer> kills = new HashMap<UUID, Integer>();
     public static HashMap<UUID,Integer> deaths = new HashMap<UUID, Integer>();
+    public static HashMap<UUID,Float> result = new HashMap<UUID, Float>();
 
     /**
      * キル数をインクリメント
@@ -109,6 +116,51 @@ public class KDdatabase {
         return bd(kd);
     }
 
+    public static float colKD(float kill, float death){
+        kd_kill = kill;
+        kd_death = death;
+
+        kd = kd_kill/(kd_kill + kd_death);
+
+        return bd(kd);
+    }
+
+    /**
+     * 呼び出すとKDレートが算出されるメソッド
+     * resultのHashMapに保存されるだけで何も起こらない
+     */
+    public static void col_result(){
+        for(UUID uuid : kills.keySet()){
+            result.put(uuid, colKD(kills.get(uuid), deaths.get(uuid)));
+        }
+    }
+
+    /**
+     * ハッシュマップを渡すとソートされたArrayで返してくれるメソッド
+     * @return
+     */
+    public static void sort_kd(CommandSender sender){
+        col_result();
+
+        int cnt = 1;
+        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " KD TOP5" + ChatColor.RESET + " --- ");
+        for(Map.Entry<UUID, Float> e : result.entrySet()){
+            cnt++;
+            UUID pname = e.getKey();
+            OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
+            float score = e.getValue();
+            Msg.success(sender, ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
+            if(cnt>5){
+                return;
+            }
+        }
+    }
+
+    /**
+     * 少数を四捨五入するメソッド
+     * @param num
+     * @return
+     */
     public static float bd(double num){
         BigDecimal bd = new BigDecimal(num);
         BigDecimal bd2 = bd.setScale(2, BigDecimal.ROUND_HALF_UP);

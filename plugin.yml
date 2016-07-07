@@ -7,6 +7,9 @@ commands:
     help:
         description: Help Command
         usage: /help
+    result:
+        description: Result Command
+        usage: /result
 permissions:
     ameji.use:
         description: default perm

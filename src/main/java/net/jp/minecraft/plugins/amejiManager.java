@@ -1,5 +1,6 @@
 package net.jp.minecraft.plugins;
 
+import net.jp.minecraft.plugins.Commands.Command_result;
 import net.jp.minecraft.plugins.Listener.Listener_KD;
 import net.jp.minecraft.plugins.Listener.Listener_drop;
 import org.bukkit.Bukkit;
@@ -24,6 +25,8 @@ public class amejiManager extends JavaPlugin implements Listener {
         PluginManager pm = Bukkit.getServer().getPluginManager();
         pm.registerEvents(new Listener_drop(), this);
         pm.registerEvents(new Listener_KD(), this);
+
+        getCommand("result").setExecutor(new Command_result());
 
         instance = this;
 
