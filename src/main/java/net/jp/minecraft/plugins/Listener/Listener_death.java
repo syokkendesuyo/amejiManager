@@ -27,6 +27,11 @@ public class Listener_death implements Listener {
         //例外処理をしたのでEntityをPlayer変数へ
         Player player = event.getEntity();
 
+        //プレイヤーのパーミッションを確認
+        if(!(player.hasPermission("amejiManager.drop"))){
+            return;
+        }
+
         //ロケーション情報を取得
         Location loc = player.getLocation();
 
