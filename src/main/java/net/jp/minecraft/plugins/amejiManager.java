@@ -1,6 +1,7 @@
 package net.jp.minecraft.plugins;
 
-import net.jp.minecraft.plugins.Listener.Listener_death;
+import net.jp.minecraft.plugins.Listener.Listener_KD;
+import net.jp.minecraft.plugins.Listener.Listener_drop;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -21,7 +22,8 @@ public class amejiManager extends JavaPlugin implements Listener {
         getLogger().info("Auther : syokkendesuyo");
 
         PluginManager pm = Bukkit.getServer().getPluginManager();
-        pm.registerEvents(new Listener_death(), this);
+        pm.registerEvents(new Listener_drop(), this);
+        pm.registerEvents(new Listener_KD(), this);
 
         instance = this;
 

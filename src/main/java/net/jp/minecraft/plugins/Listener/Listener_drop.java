@@ -15,7 +15,7 @@ import org.bukkit.inventory.ItemStack;
  *
  * @auther syokkendesuyo
  */
-public class Listener_death implements Listener {
+public class Listener_drop implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event){
