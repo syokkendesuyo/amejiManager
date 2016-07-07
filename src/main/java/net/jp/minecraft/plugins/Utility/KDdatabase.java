@@ -136,21 +136,66 @@ public class KDdatabase {
     }
 
     /**
-     * ハッシュマップを渡すとソートされたArrayで返してくれるメソッド
+     * kdレートを表示しちゃうメソッド
      * @return
      */
-    public static void sort_kd(CommandSender sender){
+    public static void sort_kd(CommandSender sender,int size){
         col_result();
 
         int cnt = 1;
-        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " KD TOP5" + ChatColor.RESET + " --- ");
+        sender.sendMessage("");
+        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " KD TOP" + ChatColor.RESET + " --- ");
         for(Map.Entry<UUID, Float> e : result.entrySet()){
             cnt++;
             UUID pname = e.getKey();
             OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
             float score = e.getValue();
             Msg.success(sender, ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
-            if(cnt>5){
+            if(cnt>size){
+                return;
+            }
+        }
+    }
+
+    /**
+     * Deathレートを表示しちゃうメソッド
+     * @return
+     */
+    public static void sort_kill(CommandSender sender,int size){
+        col_result();
+
+        int cnt = 1;
+        sender.sendMessage("");
+        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " KILL TOP" + ChatColor.RESET + " --- ");
+        for(Map.Entry<UUID, Integer> e : kills.entrySet()){
+            cnt++;
+            UUID pname = e.getKey();
+            OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
+            int score = e.getValue();
+            Msg.success(sender, ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
+            if(cnt>size){
+                return;
+            }
+        }
+    }
+
+    /**
+     * Deathレートを表示しちゃうメソッド
+     * @return
+     */
+    public static void sort_death(CommandSender sender,int size){
+        col_result();
+
+        int cnt = 1;
+        sender.sendMessage("");
+        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " DEATH TOP" + ChatColor.RESET + " --- ");
+        for(Map.Entry<UUID, Integer> e : deaths.entrySet()){
+            cnt++;
+            UUID pname = e.getKey();
+            OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
+            int score = e.getValue();
+            Msg.success(sender, ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
+            if(cnt>size){
                 return;
             }
         }
