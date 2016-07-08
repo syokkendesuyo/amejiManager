@@ -144,16 +144,16 @@ public class KDdatabase {
     public static void sort_kd(CommandSender sender,int size){
         col_result();
 
-        int cnt = 1;
+        int cnt = 0;
         sender.sendMessage("");
-        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " KD TOP" + size + ChatColor.RESET + " --- ");
+        Msg.success(sender, " --- " + ChatColor.RED + "♔ Result ♔ "+ ChatColor.GRAY + "-" + ChatColor.RED + " KD TOP" + size + ChatColor.RESET + " --- ");
         for(Map.Entry<UUID, Float> e : result.entrySet()){
             cnt++;
             UUID pname = e.getKey();
             OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
             float score = e.getValue();
-            Msg.success(sender, ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
-            if(cnt>size){
+            Msg.success(sender, "  " + ChatColor.GRAY + ChatColor.BOLD + cnt + ChatColor.GRAY + ".  " + ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
+            if(cnt+1>size){
                 return;
             }
         }
@@ -166,16 +166,16 @@ public class KDdatabase {
     public static void sort_kill(CommandSender sender,int size){
         col_result();
 
-        int cnt = 1;
+        int cnt = 0;
         sender.sendMessage("");
-        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " KILL TOP" + size + ChatColor.RESET + " --- ");
+        Msg.success(sender, " --- " + ChatColor.RED + "♔ Result ♔ "+ ChatColor.GRAY + "-" + ChatColor.RED + " KILL TOP" + size + ChatColor.RESET + " --- ");
         for(Map.Entry<UUID, Integer> e : kills.entrySet()){
             cnt++;
             UUID pname = e.getKey();
             OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
             int score = e.getValue();
-            Msg.success(sender, ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
-            if(cnt>size){
+            Msg.success(sender, "  " + ChatColor.GRAY + ChatColor.BOLD + cnt + ChatColor.GRAY + ".  " + ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
+            if(cnt+1>size){
                 return;
             }
         }
@@ -188,16 +188,16 @@ public class KDdatabase {
     public static void sort_death(CommandSender sender,int size){
         col_result();
 
-        int cnt = 1;
+        int cnt = 0;
         sender.sendMessage("");
-        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " DEATH TOP" + size + ChatColor.RESET + " --- ");
+        Msg.success(sender, " --- " + ChatColor.RED + "♔ Result ♔ "+ ChatColor.GRAY + "-" + ChatColor.RED + " DEATH TOP" + size + ChatColor.RESET + " --- ");
         for(Map.Entry<UUID, Integer> e : deaths.entrySet()){
             cnt++;
             UUID pname = e.getKey();
             OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
             int score = e.getValue();
-            Msg.success(sender, ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
-            if(cnt>size){
+            Msg.success(sender, "  " + ChatColor.GRAY + ChatColor.BOLD + cnt + ChatColor.GRAY + ".  " + ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
+            if(cnt+1>size){
                 return;
             }
         }
