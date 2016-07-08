@@ -1,11 +1,9 @@
 package net.jp.minecraft.plugins.Utility;
 
-import com.mysql.fabric.xmlrpc.base.Array;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -105,6 +103,7 @@ public class KDdatabase {
     public static void resetAll(){
         kills.clear();
         deaths.clear();
+        result.clear();
     }
 
     public static float getKD(UUID uuid){
@@ -130,6 +129,9 @@ public class KDdatabase {
      * resultのHashMapに保存されるだけで何も起こらない
      */
     public static void col_result(){
+        //HashMapを初期化 - 初期化しない場合何度か計算を行った時予期しない不具合が起きる場合がある為
+        result.clear();
+
         for(UUID uuid : kills.keySet()){
             result.put(uuid, colKD(kills.get(uuid), deaths.get(uuid)));
         }
@@ -144,7 +146,7 @@ public class KDdatabase {
 
         int cnt = 1;
         sender.sendMessage("");
-        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " KD TOP" + ChatColor.RESET + " --- ");
+        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " KD TOP" + size + ChatColor.RESET + " --- ");
         for(Map.Entry<UUID, Float> e : result.entrySet()){
             cnt++;
             UUID pname = e.getKey();
@@ -166,7 +168,7 @@ public class KDdatabase {
 
         int cnt = 1;
         sender.sendMessage("");
-        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " KILL TOP" + ChatColor.RESET + " --- ");
+        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " KILL TOP" + size + ChatColor.RESET + " --- ");
         for(Map.Entry<UUID, Integer> e : kills.entrySet()){
             cnt++;
             UUID pname = e.getKey();
@@ -188,7 +190,7 @@ public class KDdatabase {
 
         int cnt = 1;
         sender.sendMessage("");
-        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " DEATH TOP" + ChatColor.RESET + " --- ");
+        Msg.success(sender, " --- " + ChatColor.RED + "Result "+ ChatColor.GRAY + "-" + ChatColor.RED + " DEATH TOP" + size + ChatColor.RESET + " --- ");
         for(Map.Entry<UUID, Integer> e : deaths.entrySet()){
             cnt++;
             UUID pname = e.getKey();

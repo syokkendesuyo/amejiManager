@@ -45,7 +45,7 @@ public class syokkenItemLibrary {
             item.setItemMeta(itemmeta);
             return item;
         }
-        itemmeta.setLore(Arrays.asList("Error:TeisyokuItem.java","loreは3つまでしか登録できません。配列を確認してください。"));
+        itemmeta.setLore(Arrays.asList("Error:","loreは3つまでしか登録できません。配列を確認してください。"));
         item.setItemMeta(itemmeta);
         return item;
     }
