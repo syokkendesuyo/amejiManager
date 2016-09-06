@@ -13,46 +13,43 @@ import org.bukkit.command.CommandSender;
  * @auther syokkendesuyo
  */
 public class Command_result implements CommandExecutor {
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args){
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
-        if(!(sender.hasPermission("amejiManager.command"))){
-            Msg.warning(sender,"このコマンドを実行する権限がありません");
+        if (!(sender.hasPermission("amejiManager.command"))) {
+            Msg.warning(sender, "このコマンドを実行する権限がありません");
             return true;
         }
 
-        if(args.length == 0){
+        if (args.length == 0) {
             help(sender);
             return true;
         }
 
-        if(args.length == 1){
-            if(args[0].equalsIgnoreCase("kd")){
-                if(!sender.hasPermission("amejiManager.command.kd")){
-                    Msg.warning(sender,"このコマンドを実行する権限がありません");
+        if (args.length == 1) {
+            if (args[0].equalsIgnoreCase("kd")) {
+                if (!sender.hasPermission("amejiManager.command.kd")) {
+                    Msg.warning(sender, "このコマンドを実行する権限がありません");
                     return true;
                 }
                 KDdatabase.sort_kd(sender, 10);
                 return true;
-            }
-            else if(args[0].equalsIgnoreCase("kill") || args[0].equalsIgnoreCase("k")){
-                if(!sender.hasPermission("amejiManager.command.kill")){
-                    Msg.warning(sender,"このコマンドを実行する権限がありません");
+            } else if (args[0].equalsIgnoreCase("kill") || args[0].equalsIgnoreCase("k")) {
+                if (!sender.hasPermission("amejiManager.command.kill")) {
+                    Msg.warning(sender, "このコマンドを実行する権限がありません");
                     return true;
                 }
                 KDdatabase.sort_kill(sender, 10);
                 return true;
-            }
-            else if(args[0].equalsIgnoreCase("death") || args[0].equalsIgnoreCase("d")){
-                if(!sender.hasPermission("amejiManager.command.death")){
-                    Msg.warning(sender,"このコマンドを実行する権限がありません");
+            } else if (args[0].equalsIgnoreCase("death") || args[0].equalsIgnoreCase("d")) {
+                if (!sender.hasPermission("amejiManager.command.death")) {
+                    Msg.warning(sender, "このコマンドを実行する権限がありません");
                     return true;
                 }
                 KDdatabase.sort_death(sender, 10);
                 return true;
-            }
-            else if(args[0].equalsIgnoreCase("reset")){
-                if(!sender.hasPermission("amejiManager.command.reset")){
-                    Msg.warning(sender,"このコマンドを実行する権限がありません");
+            } else if (args[0].equalsIgnoreCase("reset")) {
+                if (!sender.hasPermission("amejiManager.command.reset")) {
+                    Msg.warning(sender, "このコマンドを実行する権限がありません");
                     return true;
                 }
                 Msg.success(sender, "データベースをリセットしました");
@@ -63,26 +60,24 @@ public class Command_result implements CommandExecutor {
             return true;
         }
 
-        if(args.length == 2){
-            if(args[0].equalsIgnoreCase("kd")){
-                if(!sender.hasPermission("amejiManager.command.kd")){
-                    Msg.warning(sender,"このコマンドを実行する権限がありません");
+        if (args.length == 2) {
+            if (args[0].equalsIgnoreCase("kd")) {
+                if (!sender.hasPermission("amejiManager.command.kd")) {
+                    Msg.warning(sender, "このコマンドを実行する権限がありません");
                     return true;
                 }
-                KDdatabase.sort_kd(sender,Integer.parseInt(args[1]));
+                KDdatabase.sort_kd(sender, Integer.parseInt(args[1]));
                 return true;
-            }
-            else if(args[0].equalsIgnoreCase("kill") || args[0].equalsIgnoreCase("k")){
-                if(!sender.hasPermission("amejiManager.command.kill")){
-                    Msg.warning(sender,"このコマンドを実行する権限がありません");
+            } else if (args[0].equalsIgnoreCase("kill") || args[0].equalsIgnoreCase("k")) {
+                if (!sender.hasPermission("amejiManager.command.kill")) {
+                    Msg.warning(sender, "このコマンドを実行する権限がありません");
                     return true;
                 }
                 KDdatabase.sort_kill(sender, Integer.parseInt(args[1]));
                 return true;
-            }
-            else if(args[0].equalsIgnoreCase("death") || args[0].equalsIgnoreCase("d")){
-                if(!sender.hasPermission("amejiManager.command.death")){
-                    Msg.warning(sender,"このコマンドを実行する権限がありません");
+            } else if (args[0].equalsIgnoreCase("death") || args[0].equalsIgnoreCase("d")) {
+                if (!sender.hasPermission("amejiManager.command.death")) {
+                    Msg.warning(sender, "このコマンドを実行する権限がありません");
                     return true;
                 }
                 KDdatabase.sort_death(sender, Integer.parseInt(args[1]));
@@ -96,8 +91,8 @@ public class Command_result implements CommandExecutor {
         return true;
     }
 
-    public void help(CommandSender sender){
-        Msg.info(sender, " --- " + ChatColor.GRAY + ChatColor.BOLD + "Command Help"+ ChatColor.GRAY + " - " + ChatColor.BOLD + "Result" + ChatColor.RESET + " --- ");
+    public void help(CommandSender sender) {
+        Msg.info(sender, " --- " + ChatColor.GRAY + ChatColor.BOLD + "Command Help" + ChatColor.GRAY + " - " + ChatColor.BOLD + "Result" + ChatColor.RESET + " --- ");
         Msg.commandFormat(sender, "result", "resultコマンドのヘルプを表示");
         Msg.commandFormat(sender, "result kd    <数値>", "KDレート上位のプレイヤーを表示");
         Msg.commandFormat(sender, "result kill  <数値>", "キル数上位のプレイヤーを表示");

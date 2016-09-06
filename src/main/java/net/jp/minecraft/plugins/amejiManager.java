@@ -18,7 +18,7 @@ public class amejiManager extends JavaPlugin implements Listener {
     //インスタンス
     private static amejiManager instance;
 
-    public void onEnable(){
+    public void onEnable() {
         getLogger().info("amejiManager が正常に読み込まれました");
         getLogger().info("Auther : syokkendesuyo");
 
@@ -32,8 +32,7 @@ public class amejiManager extends JavaPlugin implements Listener {
 
     }
 
-    public static amejiManager getInstance()
-    {
+    public static amejiManager getInstance() {
         return instance;
     }
 }
