@@ -32,6 +32,7 @@ public class amejiManager extends JavaPlugin implements Listener {
 
     }
 
+    //インスタンス
     public static amejiManager getInstance() {
         return instance;
     }
