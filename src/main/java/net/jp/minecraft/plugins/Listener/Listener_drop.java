@@ -34,13 +34,11 @@ public class Listener_drop implements Listener {
 
         //キラーが存在しない場合は無効
         if (killer == null) {
-            Bukkit.broadcastMessage("B");
             return;
         }
 
         //プレイヤーのパーミッションを確認
         if (!(player.hasPermission("amejiManager.drop"))) {
-            Bukkit.broadcastMessage("C");
             return;
         }
 
