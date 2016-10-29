@@ -1,10 +1,11 @@
 package net.jp.minecraft.plugins.Listener;
 
-import net.jp.minecraft.plugins.Utility.Msg;
 import net.jp.minecraft.plugins.Utility.syokkenItemLibrary;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,24 +21,26 @@ public class Listener_drop implements Listener {
 
     @EventHandler
     public void tagDrop(PlayerDeathEvent event) {
-        //プレイヤー以外のデスだった場合キャンセル(多分ない)
-        if (!(event.getEntity() instanceof Player)) {
+        //nullチェック
+        if (event.getEntity() == null) {
             return;
         }
 
-        //例外処理をしたのでEntityをPlayer変数へ
+        //ダメージを受けたプレイヤー
         Player player = event.getEntity();
 
-        if (!(event.getEntity().getLastDamageCause() instanceof Player)) {
-            if (player.hasPermission("amejiManager.debug")) {
-                Msg.info(player, "デバッグ：ドロップをキャンセルしました");
-                return;
-            }
+        //ダメージを与えたEntity
+        Entity killer = player.getKiller();
+
+        //キラーが存在しない場合は無効
+        if (killer == null) {
+            Bukkit.broadcastMessage("B");
             return;
         }
 
         //プレイヤーのパーミッションを確認
         if (!(player.hasPermission("amejiManager.drop"))) {
+            Bukkit.broadcastMessage("C");
             return;
         }
 
@@ -55,7 +58,6 @@ public class Listener_drop implements Listener {
             String lore[] = {ChatColor.GRAY + "UUID:", ChatColor.GRAY + player.getUniqueId().toString()};
             item = syokkenItemLibrary.custom_item(ChatColor.YELLOW + player.getName(), 1, Material.NAME_TAG, (short) 0, lore);
         }
-
 
         //デスしたところにアイテムをポロリ
         loc.getWorld().dropItem(loc, item);
