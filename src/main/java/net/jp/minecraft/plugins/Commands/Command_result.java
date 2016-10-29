@@ -91,7 +91,7 @@ public class Command_result implements CommandExecutor {
         return true;
     }
 
-    public void help(CommandSender sender) {
+    private void help(CommandSender sender) {
         Msg.info(sender, " --- " + ChatColor.GRAY + ChatColor.BOLD + "Command Help" + ChatColor.GRAY + " - " + ChatColor.BOLD + "Result" + ChatColor.RESET + " --- ");
         Msg.commandFormat(sender, "result", "resultコマンドのヘルプを表示");
         Msg.commandFormat(sender, "result kd    <数値>", "KDレート上位のプレイヤーを表示");
