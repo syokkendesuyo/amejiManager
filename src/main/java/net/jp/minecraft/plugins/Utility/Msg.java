@@ -13,8 +13,8 @@ import org.bukkit.entity.Player;
 public class Msg {
 
     //基本のPrefix
-    public final static String prefix = " * ";
-    public final static String broadcast = "[ameji|Broadcast] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + ">" + " ";
+    private final static String prefix = " * ";
+    private final static String broadcast = "[ameji|Broadcast] " + ChatColor.DARK_GRAY + ">" + ChatColor.GRAY + ">" + " ";
 
     /**
      *Successのメッセージをプレイヤーに送信
