@@ -15,13 +15,13 @@ import java.util.*;
  */
 public class KDdatabase {
 
-    public static int add;
-    public static float kd;
-    public static float kd_kill;
-    public static float kd_death;
-    public static HashMap<UUID,Integer> kills = new HashMap<UUID, Integer>();
-    public static HashMap<UUID,Integer> deaths = new HashMap<UUID, Integer>();
-    public static HashMap<UUID,Float> result = new HashMap<UUID, Float>();
+    private static int add;
+    private static float kd;
+    private static float kd_kill;
+    private static float kd_death;
+    private static HashMap<UUID,Integer> kills = new HashMap<UUID, Integer>();
+    private static HashMap<UUID,Integer> deaths = new HashMap<UUID, Integer>();
+    private static HashMap<UUID,Float> result = new HashMap<UUID, Float>();
 
     /**
      * キル数をインクリメント
@@ -208,7 +208,7 @@ public class KDdatabase {
      * @param num
      * @return
      */
-    public static float bd(double num){
+    private static float bd(double num){
         BigDecimal bd = new BigDecimal(num);
         BigDecimal bd2 = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
         return bd2.floatValue();
