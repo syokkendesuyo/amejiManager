@@ -1,7 +1,6 @@
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Utility.syokkenItemLibrary;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
