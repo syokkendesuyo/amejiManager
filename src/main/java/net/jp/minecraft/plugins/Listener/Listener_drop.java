@@ -1,3 +1,4 @@
+
 package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Utility.syokkenItemLibrary;
@@ -52,14 +53,17 @@ public class Listener_drop implements Listener {
 
         //アイテムを生成
         if (player.getName().equalsIgnoreCase("syokkendesuyo")) {
-            String lore[] = {ChatColor.GRAY + "UUID:", ChatColor.GRAY + player.getUniqueId().toString(), "** ﾌﾟﾗｸﾞｲﾝ提供したﾋﾄ **"};
-            item = syokkenItemLibrary.custom_item(ChatColor.YELLOW + player.getName(), 1, Material.NAME_TAG, (short) 0, lore);
+            item = getItem({ChatColor.GRAY + "UUID:", ChatColor.GRAY + player.getUniqueId().toString(), "** ﾌﾟﾗｸﾞｲﾝ提供したﾋﾄ **"})
         } else {
-            String lore[] = {ChatColor.GRAY + "UUID:", ChatColor.GRAY + player.getUniqueId().toString()};
-            item = syokkenItemLibrary.custom_item(ChatColor.YELLOW + player.getName(), 1, Material.NAME_TAG, (short) 0, lore);
+            item = getItem({ChatColor.GRAY + "UUID:", ChatColor.GRAY + player.getUniqueId().toString()})
         }
 
         //デスしたところにアイテムをポロリ
         loc.getWorld().dropItem(loc, item);
+    }
+
+    public static item getItem (Strin lore[]){
+        String lore[] = {ChatColor.GRAY + "UUID:", ChatColor.GRAY + player.getUniqueId().toString()};
+        item = syokkenItemLibrary.custom_item(ChatColor.YELLOW + player.getName(), 1, Material.NAME_TAG, (short) 0, lore);
     }
 }
