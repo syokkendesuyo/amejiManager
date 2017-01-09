@@ -21,11 +21,8 @@ public class Listener_KD implements Listener {
     public void death(EntityDeathEvent event) {
 
         if (!(event.getEntity().getType() == EntityType.WEATHER)) {
-            Bukkit.broadcastMessage("Killed by entity");
             return;
         }
-
-        Bukkit.broadcastMessage("Killed by player");
 
         Player player = (Player) event.getEntity();
 
