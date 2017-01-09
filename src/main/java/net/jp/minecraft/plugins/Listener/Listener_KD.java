@@ -2,7 +2,9 @@ package net.jp.minecraft.plugins.Listener;
 
 import net.jp.minecraft.plugins.Utility.KDdatabase;
 import net.jp.minecraft.plugins.Utility.Msg;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,9 +20,12 @@ public class Listener_KD implements Listener {
     @EventHandler
     public void death(EntityDeathEvent event) {
 
-        if (!(event.getEntity() instanceof Player)) {
+        if (!(event.getEntity().getType() == EntityType.WEATHER)) {
+            Bukkit.broadcastMessage("Killed by entity");
             return;
         }
+
+        Bukkit.broadcastMessage("Killed by player");
 
         Player player = (Player) event.getEntity();
 
@@ -39,7 +44,7 @@ public class Listener_KD implements Listener {
     @EventHandler
     public void killer(EntityDeathEvent event) {
 
-        if (!(event.getEntity().getKiller() instanceof Player)) {
+        if (event.getEntity().getKiller() == null) {
             return;
         }
 

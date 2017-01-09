@@ -49,18 +49,10 @@ public class Listener_drop implements Listener {
         ItemStack item;
 
         //アイテムを生成
-        if (player.getName().equalsIgnoreCase("syokkendesuyo")) {
-            item = getItem({ChatColor.GRAY + "UUID:", ChatColor.GRAY + player.getUniqueId().toString(), "** ﾌﾟﾗｸﾞｲﾝ提供したﾋﾄ **"})
-        } else {
-            item = getItem({ChatColor.GRAY + "UUID:", ChatColor.GRAY + player.getUniqueId().toString()})
-        }
+        String lore[] = {ChatColor.GRAY + "UUID:", ChatColor.GRAY + player.getUniqueId().toString()};
+        item = syokkenItemLibrary.custom_item(ChatColor.YELLOW + player.getName(), 1, Material.NAME_TAG, (short) 0, lore);
 
         //デスしたところにアイテムをポロリ
         loc.getWorld().dropItem(loc, item);
-    }
-
-    public static item getItem (Strin lore[]){
-        String lore[] = {ChatColor.GRAY + "UUID:", ChatColor.GRAY + player.getUniqueId().toString()};
-        item = syokkenItemLibrary.custom_item(ChatColor.YELLOW + player.getName(), 1, Material.NAME_TAG, (short) 0, lore);
     }
 }

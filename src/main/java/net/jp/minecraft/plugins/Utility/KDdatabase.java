@@ -213,4 +213,30 @@ public class KDdatabase {
         BigDecimal bd2 = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
         return bd2.floatValue();
     }
+
+    private static void sort_up(HashMap map){
+        //ソート用リスト
+        List<Map.Entry<String, Float>> entries = new ArrayList<Map.Entry<String, Float>>(map.entrySet());
+
+        //Comparator で Map.Entry の値を比較
+        Collections.sort(entries, new Comparator<Map.Entry<String, Float>>() {
+            //比較関数
+            public int compare(Map.Entry<String, Float> o1, Map.Entry<String, Float> o2) {
+                return o1.getValue().compareTo(o2.getValue());    //昇順
+            }
+        });
+    }
+
+    private static void sort_down(HashMap map){
+        //ソート用リスト
+        List<Map.Entry<String, Float>> entries = new ArrayList<Map.Entry<String, Float>>(map.entrySet());
+
+        //Comparator で Map.Entry の値を比較
+        Collections.sort(entries, new Comparator<Map.Entry<String, Float>>() {
+            //比較関数
+            public int compare(Map.Entry<String, Float> o1, Map.Entry<String, Float> o2) {
+                return o2.getValue().compareTo(o1.getValue());    //降順
+            }
+        });
+    }
 }
