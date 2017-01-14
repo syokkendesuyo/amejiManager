@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -54,5 +55,12 @@ public class Listener_drop implements Listener {
 
         //デスしたところにアイテムをポロリ
         loc.getWorld().dropItem(loc, item);
+    }
+
+    @EventHandler
+    public void onPlayerMoveEvent(PlayerMoveEvent event) {
+        if (event.getPlayer().getLocation().getY() < -5) {
+            event.getPlayer().setHealth(0);
+        }
     }
 }
