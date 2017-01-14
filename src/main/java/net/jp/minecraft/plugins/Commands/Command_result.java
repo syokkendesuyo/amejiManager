@@ -2,7 +2,9 @@ package net.jp.minecraft.plugins.Commands;
 
 import net.jp.minecraft.plugins.Utility.KDdatabase;
 import net.jp.minecraft.plugins.Utility.Msg;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -61,21 +63,21 @@ public class Command_result implements CommandExecutor {
         }
 
         if (args.length == 2) {
-            if (args[0].equalsIgnoreCase("kd")) {
+            if (args[0].equalsIgnoreCase("kd") || args[0].equalsIgnoreCase("kdr")) {
                 if (!sender.hasPermission("amejiManager.command.kd")) {
                     Msg.warning(sender, "このコマンドを実行する権限がありません");
                     return true;
                 }
                 KDdatabase.sort_kd(sender, Integer.parseInt(args[1]));
                 return true;
-            } else if (args[0].equalsIgnoreCase("kill") || args[0].equalsIgnoreCase("k")) {
+            } else if (args[0].equalsIgnoreCase("kill") || args[0].equalsIgnoreCase("k") || args[0].equalsIgnoreCase("kills")) {
                 if (!sender.hasPermission("amejiManager.command.kill")) {
                     Msg.warning(sender, "このコマンドを実行する権限がありません");
                     return true;
                 }
                 KDdatabase.sort_kill(sender, Integer.parseInt(args[1]));
                 return true;
-            } else if (args[0].equalsIgnoreCase("death") || args[0].equalsIgnoreCase("d")) {
+            } else if (args[0].equalsIgnoreCase("death") || args[0].equalsIgnoreCase("d") || args[0].equalsIgnoreCase("deaths")) {
                 if (!sender.hasPermission("amejiManager.command.death")) {
                     Msg.warning(sender, "このコマンドを実行する権限がありません");
                     return true;
@@ -85,6 +87,13 @@ public class Command_result implements CommandExecutor {
             }
             Msg.warning(sender, ChatColor.YELLOW + args[0] + ChatColor.RESET + " という引数は存在しません");
             return true;
+        }
+
+        if (args.length == 4) {
+            if(args[0].equalsIgnoreCase("debug")) {
+                OfflinePlayer player = Bukkit.getOfflinePlayer(args[1]);
+                KDdatabase.debug(player.getUniqueId(), Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+            }
         }
 
         help(sender);

@@ -20,8 +20,19 @@ public class KDdatabase {
     private static float kd_kill;
     private static float kd_death;
     private static HashMap<UUID,Integer> kills = new HashMap<UUID, Integer>();
+    private static HashMap<String,Float> killsString = new HashMap<String, Float>();
     private static HashMap<UUID,Integer> deaths = new HashMap<UUID, Integer>();
+    private static HashMap<String,Float> deathsString = new HashMap<String, Float>();
     private static HashMap<UUID,Float> result = new HashMap<UUID, Float>();
+    private static HashMap<String,Float> resultString = new HashMap<String, Float>();
+
+    /**
+     * デバッグ
+     */
+    public static void debug(UUID uuid, int kill, int death) {
+        kills.put(uuid, kill);
+        deaths.put(uuid, death);
+    }
 
     /**
      * キル数をインクリメント
@@ -134,6 +145,19 @@ public class KDdatabase {
 
         for(UUID uuid : kills.keySet()){
             result.put(uuid, colKD(kills.get(uuid), deaths.get(uuid)));
+            resultString.put(Bukkit.getOfflinePlayer(uuid).getName(), colKD(kills.get(uuid), deaths.get(uuid)));
+        }
+    }
+
+    private static void killsHashMapKeysToString(){
+        for(UUID uuid : kills.keySet()){
+            killsString.put(Bukkit.getOfflinePlayer(uuid).getName(), (float)kills.get(uuid));
+        }
+    }
+
+    private static void deathsHashMapKeysToString(){
+        for(UUID uuid : deaths.keySet()){
+            deathsString.put(Bukkit.getOfflinePlayer(uuid).getName(), (float)deaths.get(uuid));
         }
     }
 
@@ -144,19 +168,9 @@ public class KDdatabase {
     public static void sort_kd(CommandSender sender,int size){
         col_result();
 
-        int cnt = 0;
         sender.sendMessage("");
         Msg.success(sender, " --- " + ChatColor.RED + "♔ Result ♔ "+ ChatColor.GRAY + "-" + ChatColor.RED + " KD TOP" + size + ChatColor.RESET + " --- ");
-        for(Map.Entry<UUID, Float> e : result.entrySet()){
-            cnt++;
-            UUID pname = e.getKey();
-            OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
-            float score = e.getValue();
-            Msg.success(sender, "  " + ChatColor.GRAY + ChatColor.BOLD + cnt + ChatColor.GRAY + ".  " + ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
-            if(cnt+1>size){
-                return;
-            }
-        }
+        sort_down(sender, size, resultString, false);
     }
 
     /**
@@ -165,20 +179,12 @@ public class KDdatabase {
      */
     public static void sort_kill(CommandSender sender,int size){
         col_result();
+        killsHashMapKeysToString();
 
         int cnt = 0;
         sender.sendMessage("");
         Msg.success(sender, " --- " + ChatColor.RED + "♔ Result ♔ "+ ChatColor.GRAY + "-" + ChatColor.RED + " KILL TOP" + size + ChatColor.RESET + " --- ");
-        for(Map.Entry<UUID, Integer> e : kills.entrySet()){
-            cnt++;
-            UUID pname = e.getKey();
-            OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
-            int score = e.getValue();
-            Msg.success(sender, "  " + ChatColor.GRAY + ChatColor.BOLD + cnt + ChatColor.GRAY + ".  " + ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
-            if(cnt+1>size){
-                return;
-            }
-        }
+        sort_down(sender, size, killsString, true);
     }
 
     /**
@@ -187,20 +193,12 @@ public class KDdatabase {
      */
     public static void sort_death(CommandSender sender,int size){
         col_result();
+        deathsHashMapKeysToString();
 
         int cnt = 0;
         sender.sendMessage("");
         Msg.success(sender, " --- " + ChatColor.RED + "♔ Result ♔ "+ ChatColor.GRAY + "-" + ChatColor.RED + " DEATH TOP" + size + ChatColor.RESET + " --- ");
-        for(Map.Entry<UUID, Integer> e : deaths.entrySet()){
-            cnt++;
-            UUID pname = e.getKey();
-            OfflinePlayer p = Bukkit.getServer().getOfflinePlayer(pname);
-            int score = e.getValue();
-            Msg.success(sender, "  " + ChatColor.GRAY + ChatColor.BOLD + cnt + ChatColor.GRAY + ".  " + ChatColor.YELLOW + p.getName() + ChatColor.GRAY + " - " + ChatColor.GOLD + score);
-            if(cnt+1>size){
-                return;
-            }
-        }
+        sort_down(sender, size, deathsString, true);
     }
 
     /**
@@ -214,8 +212,9 @@ public class KDdatabase {
         return bd2.floatValue();
     }
 
-    private static void sort_up(HashMap map){
+    private static void sort_up(CommandSender sender, int size, HashMap map){
         //ソート用リスト
+        int cnt = 0;
         List<Map.Entry<String, Float>> entries = new ArrayList<Map.Entry<String, Float>>(map.entrySet());
 
         //Comparator で Map.Entry の値を比較
@@ -225,10 +224,18 @@ public class KDdatabase {
                 return o1.getValue().compareTo(o2.getValue());    //昇順
             }
         });
+        for (Map.Entry<String, Float> e : entries) {
+            cnt++;
+            Msg.success(sender, "  " + ChatColor.GRAY + ChatColor.BOLD + cnt + ChatColor.GRAY + ".  " + ChatColor.YELLOW + e.getKey() + ChatColor.GRAY + " - " + ChatColor.GOLD + e.getValue());
+            if(cnt+1>size){
+                return;
+            }
+        }
     }
 
-    private static void sort_down(HashMap map){
+    private static void sort_down(CommandSender sender, int size, HashMap map ,Boolean toInt){
         //ソート用リスト
+        int cnt = 0;
         List<Map.Entry<String, Float>> entries = new ArrayList<Map.Entry<String, Float>>(map.entrySet());
 
         //Comparator で Map.Entry の値を比較
@@ -238,5 +245,17 @@ public class KDdatabase {
                 return o2.getValue().compareTo(o1.getValue());    //降順
             }
         });
+        for (Map.Entry<String, Float> e : entries) {
+            cnt++;
+            if(toInt){
+                float val = e.getValue();//直接キャストできなかったので変数化
+                Msg.success(sender, "  " + ChatColor.GRAY + ChatColor.BOLD + cnt + ChatColor.GRAY + ".  " + ChatColor.YELLOW + e.getKey() + ChatColor.GRAY + " - " + ChatColor.GOLD + (int)val);
+            } else {
+                Msg.success(sender, "  " + ChatColor.GRAY + ChatColor.BOLD + cnt + ChatColor.GRAY + ".  " + ChatColor.YELLOW + e.getKey() + ChatColor.GRAY + " - " + ChatColor.GOLD + e.getValue());
+            }
+            if(cnt+1>size){
+                return;
+            }
+        }
     }
 }
